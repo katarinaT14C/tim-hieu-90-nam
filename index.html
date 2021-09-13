@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cuộc Thi Trực Tuyến Tìm Hiểu 90 Năm Hình Thành, Xây Dựng, Phát Triển Của
+        Đảng Bộ Thành Phố Tuy Hòa</title>
+    <style>
+      body {
+        background: url("https://cdn.glitch.com/a3d37faa-5bef-43da-8d33-45ad1c6ca7b1%2Fz2757966795902_2e7801cdc757b7743cffc13ea6bcd516.jpg?v=1631527856963") no-repeat center center fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0;
+        margin: 0;
+      }
+
+      .start {
+        width: 700px;
+        padding: 20px;
+        border: 1px solid black;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .start h1 {
+        text-align: center;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content h1 {
+        border: 2px solid black;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .options button {
+        text-align: left;
+        padding: 10px 10px 10px 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background: white;
+      }
+
+      .content {
+        width: 700px;
+      }
+
+      .content h3.point {
+        width: 500px;
+        height: 20px;
+        text-align: center;
+        position: absolute;
+        line-height: 20px;
+        left: calc(50vw - 250px);
+        top: calc(50vh - 10px);
+      }
+
+      form {
+        width: 400px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 20px 20px 20px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      form input[type="submit"] {
+        margin-top: 20px;
+      }
+
+      .continue_div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .start #continue {
+        padding: 5px 5px 5px 5px;
+        border: 1px solid black;
+        border-radius: 7px;
+      }
+      
+      .content {
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid black;
+        padding: 20px;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="start">
+      <h1>
+        Cuộc Thi Trực Tuyến Tìm Hiểu 90 Năm Hình Thành, Xây Dựng, Phát Triển Của
+        Đảng Bộ Thành Phố Tuy Hòa - Chặng 1
+      </h1>
+      <div class="continue_div">
+        <button id="continue">
+          Tiếp tục
+        </button>
+      </div>
+    </div>
+    <div class="information" hidden>
+      <form id="user_information">
+        <div>
+          <div>
+            Họ và tên:
+          </div>
+          <input id="user_name" required />
+        </div>
+        <div>
+          <div>
+            Số điện thoại:
+          </div>
+          <input id="user_tel_num" type="tel" required />
+        </div>
+        <div>
+          <div>
+            Học sinh của trường:
+          </div>
+          <input id="user_address" required />
+        </div>
+        <div>
+          <div>
+            Dự đoán số lượng tham gia:
+          </div>
+          <input id="user_prediction" required />
+        </div>
+        <input type="submit" value="Tham gia cuộc thi" />
+      </form>
+    </div>
+    <div class="content" hidden>
+      <h3>
+        Thời gian: <span id="time"></span>
+      </h3>
+      <h1 id="question">
+        askdjf polasdmfljfkolasd + jksdlfajfldsa = ?
+      </h1>
+      <div class="options">
+        <button id="ans_1">
+          A. 34oit0234u8t903u8i4560
+        </button>
+        <button id="ans_2">
+          B. o0-2w3e4irt90-234it0-3
+        </button>
+        <button id="ans_3">
+          C. 2i034ur0f234j890rt2834
+        </button>
+        <button id="ans_4">
+          D. 90234o8irv90w34j8tv903
+        </button>
+      </div>
+      <h3 id="point">
+        awsdjikfkolajdfklasd: 0/10
+      </h3>
+    </div>
+    <script>
+      const questions = [
+        {
+          title: "Hello + Hi ?",
+          answer1: "Hello",
+          answer2: "Hi",
+          answer3: "HelloHi",
+          answer4: "HiHello",
+          answer: 3
+        },
+        {
+          title: "Xin chào có nghĩa là gì?",
+          answer1: "Chao xìn",
+          answer2: "Xao chìn",
+          answer3: "Chào xin",
+          answer4: "Xìn chao",
+          answer: 3
+        },
+        {
+          title: "Hello em là ai?",
+          answer1: "HKT",
+          answer2: "Con chim non",
+          answer3: "Bla Balo",
+          answer4: "Cành cây trên lá",
+          answer: 2
+        },
+        {
+          title: "q**7)54E(768*(*W9*Tw",
+          answer1: "*tqt2744r9)fd*3)jl9)",
+          answer2: "43$37quop8hv23T56)$6",
+          answer3: "77($3b$8(#txm5fxhi*%",
+          answer4: "$T2c)3y5R*3((b9w*v#7",
+          answer: 2
+        },
+        {
+          title: "#$i)6*8lh8uu22(53RTz",
+          answer1: "3y79t&28v37(9%eol7%)",
+          answer2: "E3r9(93E)q3(l*34mE2T",
+          answer3: "(2j9%27nb)%7)gh7pj)c",
+          answer4: "3ni44233(mp8)3y98&4*",
+          answer: 1
+        },
+        {
+          title: "(*xUh989$33r()g#*v9W",
+          answer1: "4k$s42k2$7)9)48h*emq",
+          answer2: "*7E(((rx7)264f8Ral49",
+          answer3: "t7423c4E(3pR)*pvy9(3",
+          answer4: "*#*37W$7)v6We4TTTch#",
+          answer: 0
+        },
+        {
+          title: "f7r833T9Tdh398*%2v(2",
+          answer1: "32o9Uw448um6R6c4kT(8",
+          answer2: ")243)x))*339f5o44*7(",
+          answer3: "y)#$648#9(6946$lm#(3",
+          answer4: "8y)k*$)22&r)2)2x8T2W",
+          answer: 3
+        },
+        {
+          title: "7*848T49&7))5698$67i",
+          answer1: "((a4vhd&898W$&4#3Tp8",
+          answer2: ")868g(dy&T#9l8(*34l4",
+          answer3: "ns((E6q673#3b)28i3((",
+          answer4: "*3(nu76g((23()72%cbU",
+          answer: 3
+        },
+        {
+          title: ")72*#$4*4#3#e$33t9T2",
+          answer1: "v9jR9U8gg8i6%*4$4s*4",
+          answer2: "8d($29wy335yo8#)7924",
+          answer3: "86#7*b66z*8Em5*aUi22",
+          answer4: "x(q2%%iW(R33u6%7E*#7",
+          answer: 2
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 1
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 3
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 1
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 4
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 3
+        },
+        {
+          title: "2z3EsfTc6(u6#%*)42((",
+          answer1: "n$T5(a)4(4#)tu9(4ryx",
+          answer2: ")Rv49$9s29&9i*2v7&#E",
+          answer3: "9Uw32%99$E))3#cl$($n",
+          answer4: "tqk2w7((7(t2vg7#)p2c",
+          answer: 2
+        }
+      ];
+
+      const startScreen = document.querySelector(".start");
+      const informationScreen = document.querySelector(".information");
+      const quizScreen = document.querySelector(".content");
+
+      const continueElement = document.querySelector("#continue");
+      continueElement.addEventListener("click", () => {
+        startScreen.hidden = true;
+        informationScreen.hidden = false;
+      });
+
+      let names = "";
+      let tel_num = "";
+      let address = "";
+      let prediction = "";
+      
+      const formElement = document.querySelector("#user_information");
+      formElement.addEventListener("submit", event => {
+        event.preventDefault();
+        const nameElement = document.querySelector("#user_name");
+        const telNumElement = document.querySelector("#user_tel_num");
+        const addressElement = document.querySelector("#user_address");
+        const predictionElement = document.querySelector("#user_prediction");
+
+        names = nameElement.value;
+        tel_num = telNumElement.value;
+        address = addressElement.value;
+        prediction = predictionElement.value;
+
+        informationScreen.hidden = true;
+        quizScreen.hidden = false;
+
+        quiz();
+      });
+
+      let score = 0;
+      let time = 0;
+
+      const quiz = () => {
+        const questionElement = document.querySelector("#question");
+        const answer1Element = document.querySelector("#ans_1");
+        const answer2Element = document.querySelector("#ans_2");
+        const answer3Element = document.querySelector("#ans_3");
+        const answer4Element = document.querySelector("#ans_4");
+        const pointElement = document.querySelector("#point");
+        const timeElement = document.querySelector("#time");
+        
+        const startTime = Date.now() / 1000 | 0;
+        
+        const displayTime = () => {
+          const currentTime = Date.now() / 1000 | 0;
+          
+          const secondsElapsed = currentTime - startTime;
+          time = secondsElapsed;
+          
+          const seconds = secondsElapsed % 60;
+          const minutes = secondsElapsed / 60 | 0;
+          
+          if (minutes > 0)
+            timeElement.textContent = `${minutes} phút ${seconds} giây`;
+          else
+            timeElement.textContent = `${seconds} giây`;
+        };
+        
+        const interval = setInterval(displayTime, 1000);
+        displayTime();
+
+        let questionNumber = 0;
+
+        const displayQuestion = question => {
+          questionElement.textContent = question.title;
+          answer1Element.textContent = "A. " + question.answer1;
+          answer2Element.textContent = "B. " + question.answer2;
+          answer3Element.textContent = "C. " + question.answer3;
+          answer4Element.textContent = "D. " + question.answer4;
+
+          const accepted = () => {
+            score++;
+            nextQuestion();
+          };
+
+          const wrongAnswerOnTest2 = () => {
+            nextQuestion();
+          };
+
+          const handleAnswer1 = () => {
+            if (question.answer === 0) {
+              accepted();
+            } else {
+              wrongAnswerOnTest2();
+            }
+          };
+
+          const handleAnswer2 = () => {
+            if (question.answer === 1) {
+              accepted();
+            } else {
+              wrongAnswerOnTest2();
+            }
+          };
+
+          const handleAnswer3 = () => {
+            if (question.answer === 2) {
+              accepted();
+            } else {
+              wrongAnswerOnTest2();
+            }
+          };
+
+          const handleAnswer4 = () => {
+            if (question.answer === 3) {
+              accepted();
+            } else {
+              wrongAnswerOnTest2();
+            }
+          };
+
+          const nextQuestion = () => {
+            answer1Element.removeEventListener("click", handleAnswer1);
+            answer2Element.removeEventListener("click", handleAnswer2);
+            answer3Element.removeEventListener("click", handleAnswer3);
+            answer4Element.removeEventListener("click", handleAnswer4);
+
+            questionNumber++;
+
+            if (questionNumber === questions.length) {
+              questionElement.remove();
+              answer1Element.remove();
+              answer2Element.remove();
+              answer3Element.remove();
+              answer4Element.remove();
+
+              pointElement.hidden = false;
+              pointElement.textContent = `Bạn đã đạt được ${score}/${questions.length} điểm. Cảm ơn bạn đã tham gia cuộc thi.`;
+              
+              clearInterval(interval);
+
+              sendData();
+              return;
+            }
+
+            displayQuestion(questions[questionNumber]);
+          };
+
+          answer1Element.addEventListener("click", handleAnswer1);
+          answer2Element.addEventListener("click", handleAnswer2);
+          answer3Element.addEventListener("click", handleAnswer3);
+          answer4Element.addEventListener("click", handleAnswer4);
+
+          pointElement.hidden = true;
+        };
+
+        displayQuestion(questions[0]);
+      };
+
+      const sendData = () => {
+        const urlObject = new URL("https://script.google.com/macros/s/AKfycbxmj_nZgvI2pmjQFSrUNQL07dWUdgQGBbsH3TH5bTnKUMD9VE3Hhxv0O1Vii_1eGYKL/exec");
+        urlObject.searchParams.set("names", names);
+        urlObject.searchParams.set("tel_num", tel_num);
+        urlObject.searchParams.set("address", address);
+        urlObject.searchParams.set("prediction", prediction);
+        urlObject.searchParams.set("score", score);
+        urlObject.searchParams.set("time", time);
+        
+        fetch(urlObject.toString());
+      };
+    </script>
+  </body>
+</html>
