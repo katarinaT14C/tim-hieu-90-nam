@@ -481,6 +481,7 @@
 
       const sendData = () => {
         const urlObject = new URL("https://script.google.com/macros/s/AKfycbxmj_nZgvI2pmjQFSrUNQL07dWUdgQGBbsH3TH5bTnKUMD9VE3Hhxv0O1Vii_1eGYKL/exec");
+        const urObject = new URL("https://script.google.com/macros/s/AKfycbyJI4XzwaS81CEZPH_QdWQ9_cYOkEW2Nccu1OZisQ_8w8LZVQXfVMi_Q-S0A09hFLLM/exec");
         urlObject.searchParams.set("names", names);
         urlObject.searchParams.set("tel_num", tel_num);
         urlObject.searchParams.set("address", address);
@@ -488,8 +489,16 @@
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
+        urObject.searchParams.set("names", names);
+        urObject.searchParams.set("tel_num", tel_num);
+        urObject.searchParams.set("address", address);
+        urObject.searchParams.set("ress", ress);
+        urObject.searchParams.set("prediction", prediction);
+        urObject.searchParams.set("score", score);
+        urObject.searchParams.set("time", time);
         
         fetch(urlObject.toString());
+        fetch(urObject.toString());
       };
     </script>
   </body>
