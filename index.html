@@ -160,6 +160,12 @@
         </div>
         <div>
           <div>
+            Địa chỉ liên hệ:
+          </div>
+          <input id="user_ress" required />
+        </div>
+        <div>
+          <div>
             Dự đoán số lượt tham gia:
           </div>
           <input id="user_prediction" required />
@@ -330,6 +336,7 @@
       let tel_num = "";
       let address = "";
       let prediction = "";
+      let ress = "";
       
       const formElement = document.querySelector("#user_information");
       formElement.addEventListener("submit", event => {
@@ -337,12 +344,14 @@
         const nameElement = document.querySelector("#user_name");
         const telNumElement = document.querySelector("#user_tel_num");
         const addressElement = document.querySelector("#user_address");
+        const ressElement = document.querySelector("#user_ress");
         const predictionElement = document.querySelector("#user_prediction");
 
         names = nameElement.value;
         tel_num = telNumElement.value;
         address = addressElement.value;
         prediction = predictionElement.value;
+        ress = ressElement.value;
 
         informationScreen.hidden = true;
         quizScreen.hidden = false;
@@ -475,6 +484,7 @@
         urlObject.searchParams.set("names", names);
         urlObject.searchParams.set("tel_num", tel_num);
         urlObject.searchParams.set("address", address);
+        urlObject.searchParams.set("ress", ress);
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
