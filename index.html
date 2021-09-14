@@ -2,11 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Cuộc Thi Trực Tuyến Tìm Hiểu 90 Năm Hình Thành, Xây Dựng, Phát Triển Của
-        Đảng Bộ Thành Phố Tuy Hòa</title>
+    <title>
+      Cuộc Thi Trực Tuyến Tìm Hiểu 90 Năm Hình Thành, Xây Dựng, Phát Triển Của
+      Đảng Bộ Thành Phố Tuy Hòa
+    </title>
     <style>
       body {
-        background: url("https://cdn.glitch.com/a3d37faa-5bef-43da-8d33-45ad1c6ca7b1%2Fz2757966795902_2e7801cdc757b7743cffc13ea6bcd516.jpg?v=1631527856963") no-repeat center center fixed;
+        background: url("https://cdn.glitch.com/a3d37faa-5bef-43da-8d33-45ad1c6ca7b1%2Fz2757966795902_2e7801cdc757b7743cffc13ea6bcd516.jpg?v=1631527856963")
+          no-repeat center center fixed;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -89,7 +92,7 @@
         border: 1px solid black;
         border-radius: 7px;
       }
-      
+
       .content {
         background: rgba(255, 255, 255, 0.8);
         border: 2px solid black;
@@ -97,8 +100,6 @@
         border-radius: 20px;
       }
     </style>
-
-    </script>
   </head>
   <body>
     <div class="start">
@@ -142,9 +143,7 @@
       </form>
     </div>
     <div class="content" hidden>
-      <h3>
-        Thời gian: <span id="time"></span>
-      </h3>
+      <h3>Thời gian: <span id="time"></span></h3>
       <h1 id="question">
         askdjf polasdmfljfkolasd + jksdlfajfldsa = ?
       </h1>
@@ -304,7 +303,7 @@
       let tel_num = "";
       let address = "";
       let prediction = "";
-      
+
       const formElement = document.querySelector("#user_information");
       formElement.addEventListener("submit", event => {
         event.preventDefault();
@@ -335,24 +334,24 @@
         const answer4Element = document.querySelector("#ans_4");
         const pointElement = document.querySelector("#point");
         const timeElement = document.querySelector("#time");
-        
+
         const startTime = Date.now() / 1000 | 0;
-        
+
         const displayTime = () => {
           const currentTime = Date.now() / 1000 | 0;
-          
+
           const secondsElapsed = currentTime - startTime;
           time = secondsElapsed;
-          
+
           const seconds = secondsElapsed % 60;
           const minutes = secondsElapsed / 60 | 0;
-          
+
           if (minutes > 0)
             timeElement.textContent = `${minutes} phút ${seconds} giây`;
           else
             timeElement.textContent = `${seconds} giây`;
         };
-        
+
         const interval = setInterval(displayTime, 1000);
         displayTime();
 
@@ -423,7 +422,7 @@
 
               pointElement.hidden = false;
               pointElement.textContent = `Bạn đã đạt được ${score}/${questions.length} điểm. Cảm ơn bạn đã tham gia cuộc thi.`;
-              
+
               clearInterval(interval);
 
               sendData();
@@ -452,7 +451,7 @@
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
-        
+
         fetch(urlObject.toString());
       };
     </script>
