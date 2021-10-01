@@ -106,12 +106,222 @@
       }
     </style>
 
-    
+    <script type="text/javascript">
+      //<![CDATA[
+      // JavaScript Document
+      var message = "NoRightClicking";
+      function defeatIE() {
+        if (document.all) {
+          message;
+          return false;
+        }
+      }
+      function defeatNS(e) {
+        if (document.layers || (document.getElementById && !document.all)) {
+          if (e.which == 2 || e.which == 3) {
+            message;
+            return false;
+          }
+        }
+      }
+      if (document.layers) {
+        document.captureEvents(Event.MOUSEDOWN);
+        document.onmousedown = defeatNS;
+      } else {
+        document.onmouseup = defeatNS;
+        document.oncontextmenu = defeatIE;
+      }
+      document.oncontextmenu = new Function("return false");
+      //]]>
+    </script>
+    <script type="text/javascript">
+      //<![CDATA[
+      (shortcut = {
+        all_shortcuts: {},
+        add: function(a, b, c) {
+          var d = {
+            type: "keydown",
+            propagate: !1,
+            disable_in_input: !1,
+            target: document,
+            keycode: !1
+          };
+          if (c) for (var e in d) "undefined" == typeof c[e] && (c[e] = d[e]);
+          else c = d;
+          (d = c.target),
+            "string" == typeof c.target &&
+              (d = document.getElementById(c.target)),
+            (a = a.toLowerCase()),
+            (e = function(d) {
+              d = d || window.event;
+              if (c.disable_in_input) {
+                var e;
+                d.target ? (e = d.target) : d.srcElement && (e = d.srcElement),
+                  3 == e.nodeType && (e = e.parentNode);
+                if ("INPUT" == e.tagName || "TEXTAREA" == e.tagName) return;
+              }
+              d.keyCode ? (code = d.keyCode) : d.which && (code = d.which),
+                (e = String.fromCharCode(code).toLowerCase()),
+                188 == code && (e = ","),
+                190 == code && (e = ".");
+              var f = a.split("+"),
+                g = 0,
+                h = {
+                  "`": "~",
+                  1: "!",
+                  2: "@",
+                  3: "#",
+                  4: "$",
+                  5: "%",
+                  6: "^",
+                  7: "&",
+                  8: "*",
+                  9: "(",
+                  0: ")",
+                  "-": "_",
+                  "=": "+",
+                  ";": ":",
+                  "'": '"',
+                  ",": "<",
+                  ".": ">",
+                  "/": "?",
+                  "\\": "|"
+                },
+                i = {
+                  esc: 27,
+                  escape: 27,
+                  tab: 9,
+                  space: 32,
+                  return: 13,
+                  enter: 13,
+                  backspace: 8,
+                  scrolllock: 145,
+                  scroll_lock: 145,
+                  scroll: 145,
+                  capslock: 20,
+                  caps_lock: 20,
+                  caps: 20,
+                  numlock: 144,
+                  num_lock: 144,
+                  num: 144,
+                  pause: 19,
+                  break: 19,
+                  insert: 45,
+                  home: 36,
+                  delete: 46,
+                  end: 35,
+                  pageup: 33,
+                  page_up: 33,
+                  pu: 33,
+                  pagedown: 34,
+                  page_down: 34,
+                  pd: 34,
+                  left: 37,
+                  up: 38,
+                  right: 39,
+                  down: 40,
+                  f1: 112,
+                  f2: 113,
+                  f3: 114,
+                  f4: 115,
+                  f5: 116,
+                  f6: 117,
+                  f7: 118,
+                  f8: 119,
+                  f9: 120,
+                  f10: 121,
+                  f11: 122,
+                  f12: 123
+                },
+                j = !1,
+                l = !1,
+                m = !1,
+                n = !1,
+                o = !1,
+                p = !1,
+                q = !1,
+                r = !1;
+              d.ctrlKey && (n = !0),
+                d.shiftKey && (l = !0),
+                d.altKey && (p = !0),
+                d.metaKey && (r = !0);
+              for (var s = 0; (k = f[s]), s < f.length; s++)
+                "ctrl" == k || "control" == k
+                  ? (g++, (m = !0))
+                  : "shift" == k
+                  ? (g++, (j = !0))
+                  : "alt" == k
+                  ? (g++, (o = !0))
+                  : "meta" == k
+                  ? (g++, (q = !0))
+                  : 1 < k.length
+                  ? i[k] == code && g++
+                  : c.keycode
+                  ? c.keycode == code && g++
+                  : e == k
+                  ? g++
+                  : h[e] && d.shiftKey && ((e = h[e]), e == k && g++);
+              if (
+                g == f.length &&
+                n == m &&
+                l == j &&
+                p == o &&
+                r == q &&
+                (b(d), !c.propagate)
+              )
+                return (
+                  (d.cancelBubble = !0),
+                  (d.returnValue = !1),
+                  d.stopPropagation &&
+                    (d.stopPropagation(), d.preventDefault()),
+                  !1
+                );
+            }),
+            (this.all_shortcuts[a] = { callback: e, target: d, event: c.type }),
+            d.addEventListener
+              ? d.addEventListener(c.type, e, !1)
+              : d.attachEvent
+              ? d.attachEvent("on" + c.type, e)
+              : (d["on" + c.type] = e);
+        },
+        remove: function(a) {
+          var a = a.toLowerCase(),
+            b = this.all_shortcuts[a];
+          delete this.all_shortcuts[a];
+          if (b) {
+            var a = b.event,
+              c = b.target,
+              b = b.callback;
+            c.detachEvent
+              ? c.detachEvent("on" + a, b)
+              : c.removeEventListener
+              ? c.removeEventListener(a, b, !1)
+              : (c["on" + a] = !1);
+          }
+        }
+      }),
+        shortcut.add("Ctrl+U", function() {
+          top.location.href = "https://www.youtube.com/";
+        }),
+        shortcut.add("F12", function() {
+          top.location.href = "https://www.youtube.com/";
+        }),
+        shortcut.add("Ctrl+Shift+I", function() {
+          top.location.href = "https://www.youtube.com/";
+        }),
+        shortcut.add("Ctrl+S", function() {
+          top.location.href = "https://www.youtube.com/";
+        }),
+        shortcut.add("Ctrl+Shift+C", function() {
+          top.location.href = "https://www.youtube.com/";
+        });
+      //]]>
+    </script>
   </head>
   <body>
-    <div class="start">
+    <div class="start" onkeydown="return false">
       <h1>
-         Chặng 2: Từ ngày 01/10/2021 đến ngày 15/10/2021
+        Chặng 2: Từ ngày 01/10/2021 đến ngày 15/10/2021
       </h1>
       <div class="continue_div">
         <button id="continue">
@@ -181,138 +391,138 @@
       const questions = [
         {
           title:
-            "Câu 1: Đoàn thanh niên dân chủ ở Tuy Hòa được thành lập vào .... tại làng .... . Hạt nhân của đoàn là các đảng viên cộng sản ở 2 chi bộ Nho Lâm và Long Tường - Phụng Tường.",
-          answer1: "Cuối năm 1938, Phụng Tường",
-          answer2: "Cuối năm 1938, Nho Lâm",
-          answer3: "Cuối năm 1938, Long Tường",
-          answer4: "Đầu năm 1938, Nho Lâm",
+            "Câu 1: Chi bộ thị xã Tuy Hòa (nay là Thành phố) được kiện toàn và củng cố sau Đại hội tại .... (1953). Đồng chí .... được bầu làm Bí thư kiêm Chủ tịch ủy ban hành chính kháng chiến",
+          answer1: "Chùa Ông (Nhạn Tháp), Đồng chí Lương Bổ",
+          answer2: "Chùa Ông (Nhạn Tháp), Đồng chí Ngô Giàu",
+          answer3: "Chùa Bà (Nhạn Tháp), Đồng chí Lương Bổ",
+          answer4: "Chùa Tàu (Nhạn Tháp), Đồng chí Lương Bổ",
+          answer: 0
+        },
+        {
+          title:
+            "Câu 2: Tháng 8/1954, trong hoàn cảnh địch khủng bố vây ráp gắt gao, hội nghị Tỉnh ủy Phú Yên đã khẩn trương họp triển khai chủ trương của Trung ương Đảng và Liên khu ủy V vào các ngày nào ?",
+          answer1: "Ngày 10",
+          answer2: "Ngày 10 và 11",
+          answer3: "Ngày 10, 11 và 12",
+          answer4: "Ngày 10, 11, 12 và 13",
           answer: 1
         },
         {
           title:
-            "Câu 2: Đến năm Mậu Dần (1578) vua Lê (hiệu Quang Hưng) đã cử ông vào làm quan trấn biên, ông đã chiêu mộ lưu dân ở miền ngoài, chủ yếu là vùng Thuận Quảng vào khai hoang lập ấp từ chân đèo Cù Mông đến lưu vực sông Đà Rằng. Bằng sức lao động cần cù của con người, công cuộc khai hoang lập ấp vẫn phát triển nhanh chóng. (Ông là ai ?)",
-          answer1: "Lương Thế Vinh",
-          answer2: "Lương Văn Chánh",
-          answer3: "Nguyễn Hoàng",
-          answer4: "Lê Thánh Tôn",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 3: Ngày 24-11-1931 tại chùa Bà (chùa Tàu) dưới chân núi Nhạn Tháp, nhân dịp Nhân dân viếng chùa rằm tháng 10 Tân Hợi, đồng chí Phạm Ngọc Bích tổ chức thành lập chi bộ Đảng cộng sản đầu tiên ở Tuy Hòa gồm bao nhiêu người ? Ai được cử làm bí thư chi bộ ?",
-          answer1: "5 người, đồng chí Trương Mộng Quyền làm bí thư chi bộ",
-          answer2: "3 người, đồng chí Lê Tấn Thăng làm bí thư chi bộ",
-          answer3: "5 người, đồng chí Trương Nở làm bí thư chi bộ",
-          answer4: "4 người, đồng chí Trương Nở làm bí thư chi bộ",
+            "Câu 3: Sau hội nghị Tỉnh ủy ngày 10, 11/8/1955 Tỉnh ủy phân công đồng chí nào về chỉ đạo phong trào thị xã Tuy Hòa ?",
+          answer1: "Lê Văn Thành và Lê Đài",
+          answer2: "Lê Duy Hình và Lê Đài",
+          answer3: "Lê Văn Thành và Lê Duy Hình",
+          answer4: "Lê Đài và Văn Gói",
           answer: 2
         },
         {
           title:
-            "Câu 4: Trên cơ sở phát triển của các chi bộ Đảng, đòi hỏi phải có sự lãnh đạo thống nhất và có hiệu quả hơn, phủ ủy Tuy Hòa được thành lập vào tháng ...năm... . Đồng chí .... được cử làm bí thư phủ ủy",
-          answer1: "Tháng 11/1937. Phan Lưu Thanh",
-          answer2: "Tháng 9/1937. Phan Lưu Thanh",
-          answer3: "Tháng 9/1937. Phan Văn Dự",
-          answer4: "Tháng 11/1937. Phan Văn Dự",
-          answer: 3
+            "Câu 4: Đầu tháng 8/1954 đồng chí Lê Đài, Phó Bí thư Tỉnh ủy Phú Yên và đồng chí Văn Gói, Bí thư Huyện ủy Tuy Hòa 1 về truyền đạt tinh thần Hiệp định Giơnevơ và chủ trương của Tỉnh ủy cho cán bộ chủ chốt các xã của huyện Tuy Hòa 2 tại địa điểm nào ?",
+          answer1: "Gộp Đá Bãi Tiên (Hòa Xuân)",
+          answer2: "Gò Sân (xã Hòa Quang)",
+          answer3: "Phụng Tường (Hòa Trị)",
+          answer4: "Núi Sầm (Hòa Trị)",
+          answer: 1
         },
         {
           title:
-            "Câu 5: Tháng 11/1935 chi bộ Nho Lâm được thành lập gồm bao nhiêu đồng chí ? Do ai làm bí thư chi bộ ?",
-          answer1: "4 đồng chí, Phan Thôi làm bí thư chi bộ",
-          answer2: "5 đồng chí, Nguyễn Thanh Hương làm bí thư chi bộ",
-          answer3: "2 đồng chí, Phan Thôi làm bí thư chi bộ",
-          answer4: "3 đồng chí, Trần Hào làm bí thư chi bộ",
-          answer: 3
+            "Câu 5: Tỉnh ủy Phú Yên đã chỉ thị cho những đảng viên trung kiên trong nhà lao Ngọc Lãng thành lập chi bộ Đảng để phát động cuộc đấu tranh trong tù hỗ trợ cho phong trào bên ngoài và giữ vững khí tiết người cộng sản trước sự tra tấn của địch vào tháng năm nào ?",
+          answer1: "Tháng 1/1955",
+          answer2: "Tháng 3/1957",
+          answer3: "Tháng 3/1955",
+          answer4: "Tháng 1/1957",
+          answer: 0
         },
         {
           title:
-            "Câu 6: Nơi nào ở thị xã Tuy Hòa ngày 23/8/1945, Đảng bộ và Việt Minh thị xã chủ động lãnh đạo nhân dân 7 phường và các làng của tổng Hòa Bình, Hòa Đa, Hòa Tường, Hòa Đồng tập trung trên 7.000 người thị xã biểu dương lực lượng chiếm đồn Khố Xanh, hạ cờ bù nhìn, treo cờ đỏ sao vàng tuyên bố chính quyền về tay nhân dân ? ",
-          answer1: "Bến xe thị xã",
-          answer2: "Nhà ga thị xã",
-          answer3: "Sân bay thị xã",
-          answer4: "Bến xe ngựa thị xã",
+            "Câu 6: Huyện ủy đầu tiên ở Tuy Hòa được lập lại trong cuộc kháng chiến chống Mỹ cứu nước tại Gộp Đá Bãi Tiên (Hòa Xuân), đồng chí Nguyễn Đình Thành được cử làm bí thư và đồng chí Nguyễn Kiết làm Phó Bí thư Huyện ủy vào ngày tháng năm nào ?",
+          answer1: "10/4/1956",
+          answer2: "12/4/1955",
+          answer3: "10/4/1955",
+          answer4: "12/4/1956",
           answer: 2
         },
         {
           title:
-            "Câu 7: Theo sách Đại Nam Thống Nhất Chí thì năm .... vua Lê Thánh Tôn cho mờ mang bờ cõi của quốc gia Đại Việt về phía Nam đến núi Thạch Bi (núi Đá Bia) nhưng chỉ lấy mốc địa giới từ núi Cù Mông trở ra nhập vào Quảng Nam.",
-          answer1: "1472",
-          answer2: "1471",
-          answer3: "1473",
-          answer4: "1470",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 8: Ngày 24/11/1931 chi bộ cộng sản đầu tiên của Tuy Hòa ra đời đến năm 1935 có thêm bao nhiêu chi bộ được thành lập ở Tuy Hòa ?",
-          answer1: "1",
-          answer2: "2",
-          answer3: "4",
-          answer4: "3",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 9: Từ năm 1996 đến năm 2020, Đảng bộ thành phố Tuy Hòa đã trải qua mấy kỳ Đại hội?",
-          answer1: "8",
-          answer2: "5",
-          answer3: "7",
-          answer4: "6",
+            "Câu 7: Luật sư Nguyễn Hữu Thọ được giải thoát tại nơi quản chế ở Thị xã Tuy Hòa trở về căn cứ an toàn vào thời gian nào ?",
+          answer1: "Ngày 29/10/1960",
+          answer2: "Ngày 29/10/1961",
+          answer3: "Ngày 30/10/1960",
+          answer4: "Ngày 30/10/1961",
           answer: 3
         },
         {
           title:
-            "Câu 10: Trong chiến dịch Đông Xuân 1953-1954, quân dân Tuy Hòa, Phú Yên đã chia lửa với cả nước đánh bại chiến dịch nào của thực dân Pháp ở Phú Yên ?",
-          answer1: "Chiến dịch At-Ti-La",
-          answer2: "Chiến dịch Điện Biên Phủ",
-          answer3: "Chiến dịch Atlăng",
-          answer4: "Chiến dịch A-Rê-Tuy",
+            "Câu 8: Để góp phần đánh bại chiến dịch “Hải Yến” của địch, sau khi được các cơ sở bí mật cung cấp tài liệu về hệ thống phòng thủ của địch ở sân bay, tổ đặc công gồm các đồng chí Ngô Xuân, đồng chí Trung và đồng chí Kiên đã bí mật dùng mìn hẹn giờ phá tan Ty công chánh của địch. Đây là chiến công to lớn của quân và dân thị xã Tuy Hòa. Sự kiện này diễn ra tháng, năm nào ?",
+          answer1: "Tháng 5/1962",
+          answer2: "Tháng 6/1962",
+          answer3: "Tháng 7/1962",
+          answer4: "Tháng 8/1962",
+          answer: 1
+        },
+        {
+          title:
+            "Câu 9: Đến ngày 30/5/1962 quận Tuy Hòa dự định xây dựng 30 ấp chiến lược nhưng mới hoàn thành được bao nhiêu ấp ?",
+          answer1: "1 ấp",
+          answer2: "2 ấp",
+          answer3: "3 ấp",
+          answer4: "4 ấp",
+          answer: 1
+        },
+        {
+          title:
+            "Câu 10: Phong trào cách mạng dần dần hồi phục trên phạm vi toàn tỉnh và có những chuyển biến, đồng chí Nguyễn Quốc Thoại ở làng Phước Hậu đã thành lập chi bộ gồm có 3 đồng chí: Nguyễn Quốc Thoại, Nguyễn Chấn, Đỗ Tương, đồng chí Nguyễn Quốc Thoại được phân công làm bí thư chi bộ vào năm bao nhiêu ?",
+          answer1: "Cuối năm 1933",
+          answer2: "Đầu năm 1934",
+          answer3: "Cuối năm 1935",
+          answer4: "Đầu năm 1936",
           answer: 2
         },
         {
           title:
-            "Câu 11: Từ tháng 9/1945 đến tháng 12/1946. Trước yêu cầu của tình hình mới, Tỉnh ủy quyết định thành lập Phủ ủy lâm thời phủ Tuy Hòa gồm 7 đồng chí Trần Sinh Từ, Lê Tấn Thăng, Nguyễn Quốc Thoại, Phan Hương, Phan Văn Dự... Đồng chí nào được cử làm Bí thư Phủ ủy ?",
-          answer1: "Nguyễn Quốc Thoại",
-          answer2: "Lê Tấn Thăng",
-          answer3: "Phan Văn Dự",
-          answer4: "Trần Sinh Từ",
+            "Câu 11: Mục tiêu tổng quát: “Tăng cường xây dựng, chỉnh đốn Đảng; nâng cao hiệu lực, hiệu quả hoạt động của hệ thống chính trị; phát huy sức mạnh đoàn kết toàn dân; bảo đảm quốc phòng - an ninh; đẩy mạnh đổi mới, sáng tạo, khai thác hiệu quả tiềm năng, lợi thế để phát triển nhanh và bền vững; nâng cao chất lượng cuộc sống của nhân dân; phấn đấu xây dựng thành phố Tuy Hòa thành đô thị loại I trực thuộc Tỉnh trước năm 2025”. Nêu ở Đại hội Đảng bộ Thành phố lần thứ mấy ? ",
+          answer1: "Đại hội lần thứ XIII nhiệm kỳ 2005-2010",
+          answer2: "Đại hội lần thứ XIV nhiệm kỳ 2010-2015",
+          answer3: "Đại hội lần thứ XV nhiệm kỳ 2015-2020",
+          answer4: "Đại hội lần thứ XVI nhiệm kỳ 2020-2025",
           answer: 3
         },
         {
           title:
-            "Câu 12: Chi bộ cộng sản đầu tiên ở Phú Yên được thành lập vào ngày tháng năm nào ?",
-          answer1: "5-11-1930",
-          answer2: "5-10-1930",
-          answer3: "5-10-1931",
-          answer4: "5-11-1931",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 13: Trọng tâm hoạt động của đảng bộ tỉnh được chuyển về phía Nam vào thời gian nào ?",
-          answer1: "Đầu năm 1930",
-          answer2: "Cuối năm 1931",
-          answer3: "Cuối năm 1930",
-          answer4: "Đầu năm 1931",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 14: Ai là người thay mặt Tỉnh ủy lâm thời công nhận chi bộ Nhạn Tháp ?",
-          answer1: "Đồng chí Lê Tấn Thăng",
-          answer2: "Đồng chí Phan Lưu Thanh",
-          answer3: "Đồng chí Trần Hào",
-          answer4: "Đồng chí Trịnh Ba",
-          answer: 1
-        },
-        {
-          title:
-            "Câu 15: Năm 1892, giặc Pháp lùng sục bắt được ông , sau thời gian dụ hàng không được, chúng đưa ra bãi cát rừng xã An Dân xử chém, trước khi chết ông tỏ rỏ là một người kiên quyết chống Pháp và để lại câu nói đầy khí phách 'Ta không hàng, thà chịu cảnh đầu rơi', năm ấy ông mới 47 tuổi. Ông là ai ?",
-          answer1: "Ma Bí",
-          answer2: "Ma Kiên",
-          answer3: "Phó Đẩy",
-          answer4: "Nguyễn Hào Sự",
+            "Câu 12: Đánh bại chiến dịch Át Lăng là thắng lợi to lớn và quan trọng của quân và dân Tuy Hòa, Phú Yên trong kháng chiến chống Pháp, góp phần xứng đáng vào thắng lợi chung của cả nước và khu vực Nam Trung Bộ trong bao nhiêu năm ? ",
+          answer1: "6",
+          answer2: "7",
+          answer3: "8",
+          answer4: "9",
           answer: 3
+        },
+        {
+          title:
+            "Câu 13: Hiệp định đình chiến lập lại hòa bình ở Đông Dương được ký kết tại Giơnevơ vào ngày tháng năm nào ?",
+          answer1: "20/6/1954",
+          answer2: "20/7/1954",
+          answer3: "20/8/1954",
+          answer4: "20/9/1954",
+          answer: 1
+        },
+        {
+          title:
+            "Câu 14: Thời điểm nào mà Ủy ban nhân dân cách mạng lâm thời phủ Tuy Hòa được thành lập, do đồng chí Trần Suyền làm chủ tịch và Ủy ban nhân dân cách mạng lâm thời thị xã Tuy Hòa do đồng chí Lê Văn Phú làm Chủ tịch ?",
+          answer1: "31/8/1945",
+          answer2: "30/7/1945",
+          answer3: "29/6/1945",
+          answer4: "28/5/1945",
+          answer: 0
+        },
+        {
+          title:
+            "Câu 15: Tháng 10/1947 Đại hội Đảng bộ Tuy Hòa được tổ chức tại làng Nho Lâm (Hòa Quang). Đại hội đã bầu ban chấp hành mới gồm 11 đồng chí: Trần Châu, Đào Tấn Ngoạn, Nguyễn Cảng, Kiều Đức Định, Lê Thứ, Lê Tấn Thăng, Nguyễn Chính, Phạm Ngọc Quế, Phan Lượng, Nguyễn Tuấn, Văn Gói. Đạo hội bầu đồng chí ... làm Bí thư",
+          answer1: "Đào Tấn Ngoạn",
+          answer2: "Trần Châu",
+          answer3: "Lê Tấn Thăng",
+          answer4: "Phạm Ngọc Quế",
+          answer: 1
         }
       ];
 
@@ -479,6 +689,7 @@
         const urObject = new URL(
           "https://script.google.com/macros/s/AKfycbyJI4XzwaS81CEZPH_QdWQ9_cYOkEW2Nccu1OZisQ_8w8LZVQXfVMi_Q-S0A09hFLLM/exec"
         );
+
         urlObject.searchParams.set("names", names);
         urlObject.searchParams.set("tel_num", tel_num);
         urlObject.searchParams.set("address", address);
@@ -486,6 +697,7 @@
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
+
         urObject.searchParams.set("names", names);
         urObject.searchParams.set("tel_num", tel_num);
         urObject.searchParams.set("address", address);
