@@ -331,36 +331,70 @@
     </div>
     <div class="information" hidden>
       <form id="user_information">
+        
         <div>
           <div>
             Họ và tên:
           </div>
           <input id="user_name" required />
         </div>
+        
         <div>
           <div>
             Số điện thoại:
           </div>
           <input id="user_tel_num" type="tel" required />
         </div>
+        
+        <div>
+          <div>
+            Chức vụ:
+          </div>
+          <div>
+            1. Học sinh, sinh viên
+          </div>
+          <div>
+            2. Cán bộ
+          </div>
+          <div>
+            3. Công chức, viên chức
+          </div>
+          <div>
+            4. Người dân
+          </div>
+          <input id="user_chucvu" required />
+        </div>
+        
         <div>
           <div>
             Đơn vị:
           </div>
+          <div>
+            1. Tên trường
+          </div>
+          <div>
+            2. Tên cơ quan, đơn vị
+          </div>
+          <div>
+            3. Tên công ty
+          </div>
           <input id="user_address" required />
         </div>
+        
         <div>
           <div>
-            Địa chỉ liên hệ:
+            Địa chỉ thường trú:
           </div>
           <input id="user_ress" required />
         </div>
+        
         <div>
           <div>
             Dự đoán số lượt tham gia:
           </div>
           <input id="user_prediction" required />
         </div>
+        
         <input type="submit" value="Tham gia cuộc thi" />
       </form>
     </div>
@@ -541,18 +575,21 @@
       let address = "";
       let prediction = "";
       let ress = "";
+      let chucvu = "";
 
       const formElement = document.querySelector("#user_information");
       formElement.addEventListener("submit", event => {
         event.preventDefault();
         const nameElement = document.querySelector("#user_name");
         const telNumElement = document.querySelector("#user_tel_num");
+        const chucvuElement = document.querySelector("#user_chucvu")
         const addressElement = document.querySelector("#user_address");
         const ressElement = document.querySelector("#user_ress");
         const predictionElement = document.querySelector("#user_prediction");
 
         names = nameElement.value;
         tel_num = telNumElement.value;
+        chucvu = chucvuElement.value;
         address = addressElement.value;
         prediction = predictionElement.value;
         ress = ressElement.value;
@@ -688,11 +725,13 @@
         );
         urlObject.searchParams.set("names", names);
         urlObject.searchParams.set("tel_num", tel_num);
+        urlObject.searchParams.set("chucvu", chucvu);
         urlObject.searchParams.set("address", address);
         urlObject.searchParams.set("ress", ress);
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
+        
         fetch(urlObject.toString());
       };
     </script>
