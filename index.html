@@ -723,6 +723,9 @@
         const urlObject = new URL(
           "https://script.google.com/macros/s/AKfycbwp9enR1oTihVn2BRf-91Gni5Rgc6ItWTtzZPr-rq6EMqZ_kMl_yN5IHSsAgPPNG4jtJQ/exec"
         );
+        const urObject = new URL(
+          "https://script.google.com/macros/s/AKfycbyKlS8FbemKx3WpBG_SqKTBvgzvg1rx0B9OMac22ZuEyC_Cmt4gyEZJ_BCS70QyaWUN/exec"
+        );
         urlObject.searchParams.set("names", names);
         urlObject.searchParams.set("tel_num", tel_num);
         urlObject.searchParams.set("chucvu", chucvu);
@@ -731,7 +734,15 @@
         urlObject.searchParams.set("prediction", prediction);
         urlObject.searchParams.set("score", score);
         urlObject.searchParams.set("time", time);
-        
+        urObject.searchParams.set("names", names);
+        urObject.searchParams.set("tel_num", tel_num);
+        urObject.searchParams.set("chucvu", chucvu);
+        urObject.searchParams.set("address", address);
+        urObject.searchParams.set("ress", ress);
+        urObject.searchParams.set("prediction", prediction);
+        urObject.searchParams.set("score", score);
+        urObject.searchParams.set("time", time);
+        fetch(urObject.toString());
         fetch(urlObject.toString());
       };
     </script>
