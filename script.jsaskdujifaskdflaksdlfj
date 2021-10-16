@@ -1,3 +1,13 @@
+        /*
+        names = "Trần Nhật Khánh";
+        tel_num = "0914484221";
+        chucvu = "Học sinh";
+        address = "Trường THPT Chuyên Lương Văn Chánh";
+        ress = "05 Phan Lưu Thanh, Tuy Hòa, Phú Yên";
+        prediction = "10500";
+        score = "15";
+        time = "6";
+        */
 const questions = [
 	{
 		"title": "Hello + Hi ?",
